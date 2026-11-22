@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LocalLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+.gm-style-iw-c{color:#3A2E2A!important;font-family:Poppins,system-ui,sans-serif!important}
+.gm-style-iw-d{overflow:auto!important}
+.pac-container{font-family:Poppins,system-ui,sans-serif;border:1px solid #EADFD3;border-radius:2px;box-shadow:0 12px 30px -10px rgba(58,46,42,.3)}
+</style>
+<style>
+:root{--bg:#fff;--surface:#fff;--ink:#3A2E2A;--muted:#6B5D55;--line:#EADFD3;--gold:#8A6338;--band:#F2E9E1;--pri:#4A3A2F;--onp:#fff;--soft:#FBF7F2;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1A1511;--surface:#221C17;--ink:#F1E7DD;--muted:#BBAB9C;--line:#3A3029;--gold:#D6AC7B;--band:#261F19;--pri:#D6AC7B;--onp:#1A1511;--soft:#201A15;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1A1511;--surface:#221C17;--ink:#F1E7DD;--muted:#BBAB9C;--line:#3A3029;--gold:#D6AC7B;--band:#261F19;--pri:#D6AC7B;--onp:#1A1511;--soft:#201A15;color-scheme:dark}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px);scroll-behavior:smooth}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 .95rem/1.7 Poppins,system-ui,sans-serif}
+h1,h2,h3,.logo b{font-family:"Playfair Display",Georgia,serif;font-weight:500;margin:0;line-height:1.15}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{max-width:1180px;margin:auto;padding:16px 24px;display:flex;align-items:center;gap:22px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.logo i{width:42px;height:42px;border:1.5px solid var(--gold);border-radius:50%;display:grid;place-items:center;font:italic 500 1.4rem "Playfair Display",serif;color:var(--gold)}
+.logo b{font-size:1.6rem;font-weight:600}
+.links{display:flex;gap:24px;margin-left:auto}
+.links a{color:var(--muted);text-decoration:none;font-size:.86rem;padding:6px 0;border-bottom:2px solid transparent}
+.links a:hover{color:var(--gold);border-color:var(--gold)}
+.nav{display:flex;gap:8px;align-items:center}
+.hi{font-size:.85rem;color:var(--muted)}.pf{width:30px;height:30px;border-radius:50%}
+.btn{font:500 .85rem Poppins,sans-serif;padding:11px 20px;border:1px solid var(--pri);background:var(--pri);color:var(--onp);cursor:pointer;text-decoration:none;display:inline-block;text-align:center;border-radius:2px}
+.btn:hover{opacity:.88}.btn.alt{background:transparent;color:var(--gold);border-color:var(--gold)}.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.eye{font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 16px}
+.hero{max-width:1180px;margin:auto;padding:64px 24px 40px;display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,5.6vw,4.4rem);letter-spacing:-.01em}
+.hero h1 em{display:block;font-style:italic;font-weight:400;color:var(--gold)}
+.hero .lead{color:var(--muted);max-width:30em;margin:20px 0 28px}
+.find{display:grid;grid-template-columns:1.6fr 1fr auto;border:1px solid var(--line);background:var(--surface);max-width:580px}
+input,select,textarea{font:inherit;padding:11px 12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%;border-radius:2px;min-width:0}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);outline:none}
+.find input,.find select{border:0;padding:14px;background:transparent}
+.find select{border-left:1px solid var(--line);border-radius:0}.find .btn{border-radius:0}
+textarea{min-height:84px;resize:vertical}
+.spark{margin:20px 0 0;font-size:.85rem;color:var(--muted)}.spark:before{content:"✦ ";color:var(--gold)}
+.art{position:relative}.art svg{width:100%;height:auto;display:block}
+.float{position:absolute;background:var(--surface);padding:12px 18px;box-shadow:0 18px 40px -16px rgba(58,46,42,.4);display:flex;gap:12px;align-items:center}
+.float .k{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);display:block}
+.float small{display:block;font-size:.72rem;color:var(--muted)}.float b{font:500 1.15rem "Playfair Display",serif}
+.f1{left:0;top:77%}.f2{right:2%;bottom:5%}
+main{max-width:1180px;margin:auto;padding:0 24px 24px}
+.dirhead{margin:44px 0 22px}.dirhead h2{font-size:clamp(1.9rem,4vw,2.8rem)}
+.locbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;border:1px solid var(--line);background:var(--soft);padding:14px 18px;margin-bottom:12px}
+.locbar .txt{flex:1 1 220px;font-weight:500}.locbar small{display:block;color:var(--muted);font-weight:400;font-size:.8rem}
+.pl{display:flex;gap:8px;flex:1 1 300px}
+.hint{color:var(--muted);font-size:.82rem;margin:0}
+.link{background:none;border:0;color:var(--gold);font:500 .85rem Poppins,sans-serif;cursor:pointer;padding:0;text-decoration:underline}
+#map{height:340px;border:1px solid var(--line);margin-bottom:22px;position:relative;isolation:isolate;background:var(--band)}
+#map.off{display:grid;place-items:center;padding:20px;text-align:center;color:var(--muted)}
+.pin span{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35);font:italic 600 .95rem "Playfair Display",serif;color:#4A3A2F}
+.me span{display:block;width:18px;height:18px;border-radius:50%;background:#2563EB;border:3px solid #fff;box-shadow:0 0 0 7px rgba(37,99,235,.25)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.chip{font:400 .84rem Poppins,sans-serif;padding:7px 16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;border-radius:2px}
+.chip.on{background:var(--pri);border-color:var(--pri);color:var(--onp)}
+.tools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 16px}.tools select{width:auto;padding:8px 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;transition:border-color .2s}.card:hover{border-color:var(--gold)}
+.tag{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:18px 20px 0}
+.tag span:first-child{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500}.tag span:last-child{color:var(--muted);font-size:.8rem}
+.body{padding:14px 20px 6px;display:grid;gap:12px;flex:1;align-content:start}
+.who{display:flex;gap:14px;align-items:center}
+.av{flex:none;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--gold);display:grid;place-items:center;font:italic 500 1.3rem "Playfair Display",serif;color:var(--gold)}
+.card h3{font-size:1.2rem}.area{color:var(--muted);font-size:.8rem}
+.rate{color:var(--gold);font-weight:500;font-size:.9rem}.rate span{color:var(--muted);font-weight:400}
+.about{margin:0;color:var(--muted);font-size:.88rem}
+.facts{display:flex;gap:8px;flex-wrap:wrap}.facts b{font-weight:400;font-size:.76rem;border:1px solid var(--line);padding:2px 10px;color:var(--muted)}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 20px 20px}.acts .del{grid-column:1/-1;color:#B3402F}
+details{padding:0 20px 18px;font-size:.86rem}summary{cursor:pointer;color:var(--gold);font-weight:500}
+details p{margin:8px 0 0;padding-top:8px;border-top:1px solid var(--line)}
+.empty{grid-column:1/-1;padding:36px;border:1px dashed var(--line);text-align:center;color:var(--muted)}
+.fh{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin:72px 0 30px}.fh h2{font-size:clamp(1.9rem,4vw,2.8rem)}.fh p{margin:0;color:var(--muted)}
+.feat{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.fc{border:1px solid var(--line);padding:30px 28px 26px;position:relative}.fc .ic{font-size:1.5rem;color:var(--gold)}
+.fc h3{margin:20px 0 6px;font-size:1.4rem}.fc p{margin:0;color:var(--muted);font-size:.86rem}
+.fc:after{content:"↗";position:absolute;right:20px;bottom:14px;color:var(--muted)}
+.quote{background:var(--band);text-align:center;padding:80px 24px;margin-top:64px}
+.quote .q{font:600 3rem "Playfair Display",serif;color:var(--gold);line-height:1;height:1.4rem}
+.quote .big{font:500 clamp(1.5rem,3vw,2.2rem) "Playfair Display",serif;margin:24px 0 22px}
+.quote small{letter-spacing:.2em;text-transform:uppercase;font-size:.7rem;color:var(--gold)}
+footer{max-width:1180px;margin:auto;padding:26px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.78rem}
+footer span{max-width:46em}
+dialog{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:2px;box-shadow:0 30px 70px -20px rgba(30,20,10,.5);padding:0;width:min(460px,92vw)}
+dialog::backdrop{background:rgba(26,21,17,.6)}
+dialog form{display:grid;gap:14px;padding:28px}dialog h2{font-size:1.7rem}
+label{display:grid;gap:6px;font-weight:500;font-size:.82rem}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gwrap{display:flex;justify-content:center;min-height:44px}
+.or{display:flex;gap:10px;align-items:center;margin:0;color:var(--muted);font-size:.78rem}.or:before,.or:after{content:"";flex:1;height:1px;background:var(--line)}
+.err{color:#B3402F;font-weight:500;min-height:1.3em;margin:0;font-size:.85rem}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .err,:root:not([data-theme="light"]) .acts .del{color:#FF9B8F}}
+:root[data-theme="dark"] .err,:root[data-theme="dark"] .acts .del{color:#FF9B8F}
+.star{font-size:2rem;background:none;border:0;cursor:pointer;color:var(--line);padding:0 2px;line-height:1}.star.on{color:#C08A2E}
+.favbtn{background:none;border:1px solid var(--line);color:var(--muted);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;cursor:pointer;font-size:1rem;line-height:1;flex:none;transition:all .15s}
+.favbtn:hover{border-color:var(--gold);color:var(--gold)}
+.favbtn.on{background:var(--gold);border-color:var(--gold);color:var(--onp)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.tab{font:500 .84rem Poppins,sans-serif;padding:7px 16px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;border-radius:2px;display:inline-flex;align-items:center;gap:6px}
+.tab.on{background:var(--band);border-color:var(--gold);color:var(--ink)}
+.tab b{font-weight:600;font-size:.75rem;padding:1px 6px;border-radius:10px;background:var(--surface);color:var(--gold);border:1px solid var(--line)}
+.hist-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 18px;border:1px solid var(--line);background:var(--surface)}
+.hist-list{display:grid;gap:10px;grid-column:1/-1}
+.badge{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--line);color:var(--gold);font-weight:500}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding-top:36px}.links{display:none}.nav{margin-left:auto}.fh,.feat{grid-template-columns:1fr}.find{grid-template-columns:1fr}.find select{border-left:0;border-top:1px solid var(--line)}.bar{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <a class="logo" href="#top"><i>L</i><b>LocalLink</b></a>
+  <nav class="links" aria-label="Sections"><a href="#top">Home</a><a href="#how">About app</a><a href="#directory" id="navExplore">Providers</a></nav>
+  <div class="nav" id="nav"></div>
+</div></header>
+<section class="hero" id="top">
+  <div>
+    <p class="eye">Your neighbourhood, organised</p>
+    <h1>Find trusted help <em>nearby.</em></h1>
+    <p class="lead">LocalLink connects you with verified neighbourhood plumbers, electricians, tutors, carpenters, and nearby repair shops—complete with live maps, one-tap calls, saved favorites, and activity history.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <button class="btn" type="button" id="exploreBtn" style="padding:14px 28px;font-size:.95rem">Explore providers &amp; map →</button>
+      <a class="btn alt" href="#how" style="padding:14px 22px">How it works</a>
+    </div>
+    <p class="spark">Sign in to unlock the live map, instant calls, WhatsApp chats &amp; saved history</p>
+  </div>
+  <div class="art"><svg viewBox="0 0 560 400" role="img" aria-label="Arched panels with a location pin, a light bulb and a book">
+<defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EFE2D4"/><stop offset="1" stop-color="#E4D0BC"/></linearGradient></defs>
+<g fill="url(#ga)"><path d="M10 360V170a90 90 0 0 1 180 0v190z"/><path d="M200 330V110a90 90 0 0 1 180 0v220a90 90 0 0 1-180 0z" transform="translate(0 -40)"/><path d="M390 360V170a90 90 0 0 1 160 0v190z" transform="translate(0 0)"/></g>
+<g fill="none" stroke="#8A6338" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+<g transform="translate(100 250)"><path d="M0 34C-18 10-26-4-26-18a26 26 0 0 1 52 0c0 14-8 28-26 52z"/><circle cy="-18" r="9"/></g>
+<g transform="translate(290 170)"><circle cy="-8" r="26"/><path d="M-11 22h22M-7 31h14M-8 12c0-8-8-10-8-20M8 12c0-8 8-10 8-20"/></g>
+<g transform="translate(470 250)"><path d="M-30-22h26a8 8 0 0 1 8 8v40a8 8 0 0 0-8-8h-26zM30-22h-26a8 8 0 0 0-8 8v40a8 8 0 0 1 8-8h26z"/></g></g></svg>
+    <div class="float f1"><span aria-hidden="true">⌂</span><div><small>Providers near you</small><b id="heroCount">12 trusted providers</b></div></div>
+    <div class="float f2"><div><span class="k">Word of mouth</span><b>Rated by neighbours.</b></div></div>
+  </div>
+</section>
+<main>
+  <div id="appWorkspace" hidden>
+  <div class="dirhead" id="directory" style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap">
+    <div><p class="eye">The directory</p><h2>Find someone near you</h2></div>
+    <div class="find" style="flex:1 1 420px;max-width:560px">
+      <input id="q" type="search" placeholder="Search a name or skill, such as AC or pipe leak" aria-label="Search">
+      <select id="rad" aria-label="Distance"><option value="any">Any distance</option><option value="3">Within 3 km</option><option value="5">Within 5 km</option><option value="10">Within 10 km</option><option value="25">Within 25 km</option></select>
+      <button class="btn" type="button" id="go">Search</button>
+    </div>
+  </div>
+  <section class="locbar" id="locbar">
+    <div class="txt" id="locTxt"><b>Set your location</b><small>Use your device, search an area, or click the map.</small></div>
+    <button class="btn" type="button" id="gps">Use my location</button>
+    <form class="pl" id="fPlace"><input id="place" placeholder="Search an area, such as Madhapur" aria-label="Search a place"><button class="btn alt" type="submit">Find</button></form>
+    <p class="hint" id="locMsg" role="status" style="flex-basis:100%"></p>
+  </section>
+  <div id="map" aria-label="Map of providers"></div>
+
+  <div class="tabs" id="viewTabs" role="tablist" aria-label="Directory views">
+    <button type="button" class="tab on" data-view="all">All nearby</button>
+    <button type="button" class="tab" data-view="favs">Saved favorites <b id="favCount">0</b></button>
+    <button type="button" class="tab" data-view="history">Call &amp; activity history <b id="histCount">0</b></button>
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Categories"></div>
+  <div class="tools"><strong id="count"></strong><label style="display:flex;align-items:center;gap:8px;font-weight:500">Sort by<select id="sort"><option value="near">Nearest first</option><option value="rating">Highest rated</option><option value="reviews">Most reviews</option><option value="exp">Most experience</option></select></label></div>
+  <div class="grid" id="list"></div>
+  </div>
+
+  <div class="fh" id="how"><div><p class="eye">A little less searching, a lot more done</p><h2>Everything you need nearby</h2></div><p>From the first search to the final rating, LocalLink keeps people, places and phone numbers together in one calm place.</p></div>
+  <div class="feat">
+    <div class="fc"><span class="ic">⌂</span><h3>Find who is near</h3><p>Set your location and see providers by distance on a map.</p></div>
+    <div class="fc"><span class="ic">✆</span><h3>Call in one tap</h3><p>Phone or WhatsApp a provider straight from their card.</p></div>
+    <div class="fc"><span class="ic">★</span><h3>Rate honestly</h3><p>Log in to leave one rating per provider and help neighbours choose.</p></div>
+    <div class="fc"><span class="ic">✓</span><h3>List your service</h3><p>Add your work to the map so people nearby can find you.</p></div>
+  </div>
+</main>
+<section class="quote"><div class="q">“</div><p class="big">The best help is the kind next door.</p><small>The LocalLink way</small></section>
+<footer><a class="logo" href="#top"><i>L</i><b>LocalLink</b></a><span>Made for your neighbourhood. Listings and phone numbers are sample data; accounts, ratings and listings are saved on this device only. Map data ©2026 Google.</span></footer>
+
+<dialog id="dAuth"><form id="fAuth" novalidate>
+  <h2 id="aTitle">Log in</h2>
+  <p class="hint" id="aMsg"></p>
+  <div id="gBtn" class="gwrap"></div>
+  <p class="or">or use your email</p>
+  <label id="nameRow">Full name<input name="name" autocomplete="name"></label>
+  <label>Email<input type="email" name="email" autocomplete="username" required></label>
+  <label>Password (6+ characters)<input type="password" name="pw" autocomplete="current-password" required></label>
+  <p class="err" role="alert"></p>
+  <button class="btn" type="submit" id="aBtn">Log in</button>
+  <p class="hint"><button type="button" class="link" id="aSwitch"></button></p>
+  <button class="btn ghost" type="button" data-close>Cancel</button>
+</form></dialog>
+
+<dialog id="dAdd"><form id="fAdd" novalidate>
+  <h2>Add your service</h2>
+  <p class="hint">Your listing appears at your current map location.</p>
+  <label>Name or business<input name="name" required></label>
+  <div class="two"><label>Category<select name="cat"></select></label><label>Area or landmark<input name="area" required></label></div>
+  <div class="two"><label>Phone (10 digits)<input name="phone" inputmode="numeric" required></label><label>Experience (years)<input name="exp" type="number" min="0" max="60" value="1"></label></div>
+  <label>Price hint<input name="price" placeholder="For example: ₹300 visit"></label>
+  <label>About your work<textarea name="about" maxlength="140"></textarea></label>
+  <p class="err" role="alert"></p>
+  <div class="two"><button class="btn" type="submit">Publish listing</button><button class="btn alt" type="button" data-close>Cancel</button></div>
+</form></dialog>
+
+<dialog id="dRate"><form id="fRate" novalidate>
+  <h2 id="rTitle">Rate this provider</h2>
+  <div id="stars" role="group" aria-label="Rating out of 5"></div>
+  <label>Comment (optional)<textarea name="c" maxlength="120"></textarea></label>
+  <p class="err" role="alert"></p>
+  <div class="two"><button class="btn" type="submit">Save rating</button><button class="btn alt" type="button" data-close>Cancel</button></div>
+</form></dialog>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mem={};
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+const J=(k,d)=>{try{const v=JSON.parse(store.get(k));return v==null?d:v}catch(e){return d}};
+const CATS=['Plumber','Electrician','Tutor','Carpenter','AC repair','Painter'];
+const AREAS={Madhapur:[17.4486,78.3908],Gachibowli:[17.4401,78.3489],Kukatpally:[17.4948,78.3996],Secunderabad:[17.4399,78.4983],Ameerpet:[17.4375,78.4483],Dilsukhnagar:[17.3688,78.5247]};
+const DEFAULT=[17.385,78.4867];
+const COL=['#F3E3D0','#EBD9C4','#F0E2D3','#E8D5C0','#F1E4D6','#E9DAC8'];
+const DARK_STYLE=[
+  {elementType:'geometry',stylers:[{color:'#221c17'}]},
+  {elementType:'labels.text.stroke',stylers:[{color:'#1a1511'}]},
+  {elementType:'labels.text.fill',stylers:[{color:'#bbab9c'}]},
+  {featureType:'administrative.locality',elementType:'labels.text.fill',stylers:[{color:'#d6ac7b'}]},
+  {featureType:'poi',elementType:'labels.text.fill',stylers:[{color:'#9e8e80'}]},
+  {featureType:'poi.park',elementType:'geometry',stylers:[{color:'#1e261d'}]},
+  {featureType:'road',elementType:'geometry',stylers:[{color:'#332a23'}]},
+  {featureType:'road',elementType:'geometry.stroke',stylers:[{color:'#261f19'}]},
+  {featureType:'road.highway',elementType:'geometry',stylers:[{color:'#4a3a2f'}]},
+  {featureType:'water',elementType:'geometry',stylers:[{color:'#151c24'}]}
+];
+const SEED=[
+['Ravi Plumbing Works','Plumber','Madhapur','90000 00001',8,'₹300 visit',4.6,212,'Leak repair, bathroom fittings and pipe fitting. Same-day service.'],
+['Sai Pipe and Tap','Plumber','Dilsukhnagar','90000 00002',14,'₹250 visit',4.3,134,'Tank cleaning, motor fitting and blocked drains.'],
+['Kiran Electricals','Electrician','Ameerpet','90000 00003',10,'₹200 visit',4.7,298,'Wiring, switchboards, fans and inverter setup.'],
+['Bright Spark Services','Electrician','Gachibowli','90000 00004',5,'₹250 visit',4.4,87,'Fault finding, MCB changes and new light fittings.'],
+['Anita Maths Classes','Tutor','Kukatpally','90000 00005',9,'₹1,500 a month',4.9,164,'Maths and science for classes 8 to 10, small batches.'],
+['Rahul English Coaching','Tutor','Secunderabad','90000 00006',6,'₹1,200 a month',4.5,73,'Spoken English and exam writing for school and college.'],
+['Venkat Wood Craft','Carpenter','Dilsukhnagar','90000 00007',20,'Quote on visit',4.8,121,'Wardrobes, door repairs and custom furniture.'],
+['Mohan Furniture Fix','Carpenter','Secunderabad','90000 00008',7,'₹400 visit',4.2,58,'Bed and table repairs, polish and modular fittings.'],
+['CoolAir Care','AC repair','Gachibowli','90000 00009',11,'₹350 service',4.5,176,'Split and window AC service, gas refill and installation.'],
+['Frost Point AC','AC repair','Madhapur','90000 00010',4,'₹300 service',4.1,44,'Seasonal cleaning and cooling problems.'],
+['Colour Craft Painters','Painter','Ameerpet','90000 00011',13,'₹14 per sq ft',4.6,92,'Interior and exterior painting with clean finishing.'],
+['Lakshmi Wall Studio','Painter','Kukatpally','90000 00012',6,'Quote on visit',4.4,39,'Texture walls, waterproofing and touch ups.']];
+let P=J('locallink_v2',null);
+if(!Array.isArray(P))P=SEED.map((a,i)=>({id:i+1,name:a[0],cat:a[1],area:a[2],lat:AREAS[a[2]][0]+Math.sin(i*2.3)*.006,lng:AREAS[a[2]][1]+Math.cos(i*1.7)*.006,phone:a[3],exp:a[4],price:a[5],rs:a[6]*a[7],rc:a[7],about:a[8],rev:[],by:[]}));
+const save=()=>store.set('locallink_v2',JSON.stringify(P));
+let loc=J('locallink_loc',null),me=J('locallink_me',null),users=J('locallink_users',[]);
+let favs=J('locallink_favs',[]),hist=J('locallink_hist',[]);
+const saveFavs=()=>store.set('locallink_favs',JSON.stringify(favs));
+const saveHist=()=>store.set('locallink_hist',JSON.stringify(hist));
+let view='all',cat='All',rateId=null,stars=0,mode='login',pending=null,sortTouched=false,map=null,infoWin=null,meMk=null,geocoder=null,placesSvc=null;
+let gPlaces=[],gTimer=null,lastPlaceQuery='';
+const mk={},gMk={};
+const avg=p=>p.rc?p.rs/p.rc:0;
+const km=(a,b)=>{const r=x=>x*Math.PI/180,h=Math.sin(r(b[0]-a[0])/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(r(b[1]-a[1])/2)**2;return 12742*Math.asin(Math.sqrt(h))};
+const dist=p=>loc?km(loc,[p.lat,p.lng]):null;
+const msg=t=>{$('#locMsg').textContent=t||''};
+const opts=(el,list)=>{el.innerHTML=list.map(x=>'<option>'+esc(x)+'</option>').join('')};
+opts($('#fAdd').cat,CATS);
+
+/* ---------- login (prototype: stored in this browser only) ---------- */
+const DEMO='demo@example.com';
+const rnd=()=>[...crypto.getRandomValues(new Uint8Array(8))].map(x=>x.toString(16).padStart(2,'0')).join('');
+async function hash(pw,salt){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(salt+pw));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+(async()=>{if(window.crypto&&crypto.subtle&&!users.some(u=>u.email===DEMO)){const s=rnd();users.push({name:'Demo User',email:DEMO,salt:s,hash:await hash('demo1234',s)});store.set('locallink_users',JSON.stringify(users))}})();
+const GOOGLE_CLIENT_ID='265605010740-9vblhr3uenarh3nhfct03vl3254qk3jf.apps.googleusercontent.com';
+const gReady=()=>window.google&&google.accounts&&google.accounts.id&&!GOOGLE_CLIENT_ID.startsWith('PASTE');
+function drawGoogle(){
+  const box=$('#gBtn');box.innerHTML='';
+  if(gReady()){google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:onGoogle});google.accounts.id.renderButton(box,{theme:'outline',size:'large',text:'continue_with',width:300})}
+  else{const b=document.createElement('button');b.type='button';b.className='btn alt';b.textContent='Continue with Google';b.onclick=()=>{$('#aMsg').textContent='Google sign-in is loading. Try again in a second.'};box.append(b)}
+}
+function onGoogle(r){
+  try{
+    const pl=JSON.parse(decodeURIComponent(atob(r.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+    if(pl.aud!==GOOGLE_CLIENT_ID||pl.exp<Date.now()/1000||!pl.email)throw 0;
+    me={name:pl.name||pl.email.split('@')[0],email:pl.email.toLowerCase(),picture:pl.picture||''};
+  }catch(_){$('#fAuth .err').textContent='Google sign-in failed. Try again.';return}
+  store.set('locallink_me',JSON.stringify(me));$('#dAuth').close();nav();render(false);
+  if(pending){const fn=pending;pending=null;fn()}else enterApp();
+}
+function syncWorkspace(){
+  const ws=$('#appWorkspace');
+  if(ws)ws.hidden=!me;
+  const eb=$('#exploreBtn');
+  if(eb)eb.textContent=me?'Explore providers & map ↓':'Explore providers & map →';
+  if(me&&map&&window.google&&google.maps){
+    setTimeout(()=>{
+      google.maps.event.trigger(map,'resize');
+      if(loc)map.setCenter({lat:loc[0],lng:loc[1]});
+    },60);
+  }
+}
+function enterApp(){
+  syncWorkspace();
+  render(true);
+  const dir=$('#directory');
+  if(dir)dir.scrollIntoView({behavior:'smooth'});
+}
+function nav(){
+  $('#nav').innerHTML=me?(me.picture?'<img class="pf" src="'+esc(me.picture)+'" alt="" referrerpolicy="no-referrer">':'')+'<span class="hi">Hi, '+esc(me.name.split(' ')[0])+'</span><button class="btn" type="button" id="addBtn">Add your service</button><button class="btn ghost" type="button" id="outBtn">Log out</button>'
+   :'<button class="btn ghost" type="button" data-auth="login">Log in</button><button class="btn" type="button" data-auth="signup">Sign up</button>';
+  syncWorkspace();
+}
+const gate=fn=>{if(me)fn();else{pending=fn;openAuth('login','Log in to rate or add a service.')}};
+function openAuth(m,note){
+  mode=m;const f=$('#fAuth');f.reset();f.querySelector('.err').textContent='';
+  $('#aTitle').textContent=m==='login'?'Log in':'Create your account';
+  $('#nameRow').hidden=m==='login';$('#aBtn').textContent=m==='login'?'Log in':'Sign up';
+  $('#aSwitch').textContent=m==='login'?'New here? Create an account':'Have an account? Log in';
+  $('#aMsg').textContent=note||(m==='login'?'Demo account: demo@example.com, password demo1234.':'Your account is saved on this device only.');
+  drawGoogle();$('#dAuth').showModal();
+}
+$('#aSwitch').onclick=()=>openAuth(mode==='login'?'signup':'login');
+$('#fAuth').addEventListener('submit',async e=>{
+  e.preventDefault();const f=e.target,er=f.querySelector('.err');
+  const email=f.elements.email.value.trim().toLowerCase(),pw=f.elements.pw.value,name=f.elements.name.value.trim();
+  if(!/^\S+@\S+\.\S+$/.test(email)){er.textContent='Enter a valid email address.';return}
+  if(pw.length<6){er.textContent='Password must have at least 6 characters.';return}
+  if(!(window.crypto&&crypto.subtle)){er.textContent='Open this site over https or localhost to use login.';return}
+  let u=users.find(x=>x.email===email);
+  if(mode==='signup'){
+    if(name.length<2){er.textContent='Enter your full name.';return}
+    if(u){er.textContent='This email already has an account. Log in instead.';return}
+    const salt=rnd();u={name,email,salt,hash:await hash(pw,salt)};users.push(u);store.set('locallink_users',JSON.stringify(users));
+  }else if(!u||u.hash!==await hash(pw,u.salt)){er.textContent='Email or password is incorrect.';return}
+  me={name:u.name,email:u.email};store.set('locallink_me',JSON.stringify(me));
+  $('#dAuth').close();nav();render(false);
+  if(pending){const fn=pending;pending=null;fn()}else enterApp();
+});
+$('#nav').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.auth)openAuth(b.dataset.auth);
+  else if(b.id==='addBtn')openAdd();
+  else if(b.id==='outBtn'){if(window.google&&google.accounts)google.accounts.id.disableAutoSelect();me=null;store.set('locallink_me','null');nav();render(false)}
+});
+
+/* ---------- Google Maps, Places Search & location ---------- */
+function pinIcon(letter,bg,stroke='#ffffff',fg='#4A3A2F'){
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34">'
+    +'<circle cx="17" cy="17" r="15" fill="'+bg+'" stroke="'+stroke+'" stroke-width="2.5"/>'
+    +'<text x="17" y="22" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="bold" font-size="15" fill="'+fg+'">'+esc(letter)+'</text>'
+    +'</svg>';
+  return {url:'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg),scaledSize:new google.maps.Size(34,34),anchor:new google.maps.Point(17,17)};
+}
+function isDark(){
+  const t=document.documentElement.dataset.theme;
+  return t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+}
+window.initMap=function(){
+  const el=$('#map');
+  if(!(window.google&&google.maps)){el.className='off';el.textContent='Google Maps could not load. Check your API key and internet connection.';return}
+  const center=loc?{lat:loc[0],lng:loc[1]}:{lat:DEFAULT[0],lng:DEFAULT[1]};
+  map=new google.maps.Map(el,{
+    center,
+    zoom:loc?14:11,
+    mapTypeControl:false,
+    streetViewControl:false,
+    fullscreenControl:true,
+    styles:isDark()?DARK_STYLE:[]
+  });
+  infoWin=new google.maps.InfoWindow();
+  geocoder=new google.maps.Geocoder();
+  if(google.maps.places&&google.maps.places.PlacesService){
+    placesSvc=new google.maps.places.PlacesService(map);
+  }
+  map.addListener('click',e=>setLoc([e.latLng.lat(),e.latLng.lng]));
+
+  if(google.maps.places&&google.maps.places.Autocomplete){
+    const ac=new google.maps.places.Autocomplete($('#place'),{
+      bounds:new google.maps.LatLngBounds({lat:17.20,lng:78.20},{lat:17.65,lng:78.70}),
+      fields:['geometry','name']
+    });
+    ac.addListener('place_changed',()=>{
+      const pl=ac.getPlace();
+      if(pl&&pl.geometry&&pl.geometry.location){
+        setLoc([pl.geometry.location.lat(),pl.geometry.location.lng()],true);
+      }
+    });
+  }
+  if(loc)setLoc(loc,false);
+  else render(true);
+};
+window.gm_authFailure=function(){
+  const el=$('#map');
+  el.className='off';
+  el.textContent='Google Maps authentication failed. Check that Maps JavaScript API is enabled and your HTTP referrer is allowed.';
+};
+function setLoc(ll,fly){
+  loc=ll;store.set('locallink_loc',JSON.stringify(ll));
+  if(map&&window.google&&google.maps){
+    const pos={lat:ll[0],lng:ll[1]};
+    if(meMk)meMk.setPosition(pos);
+    else{
+      meMk=new google.maps.Marker({
+        position:pos,
+        map,
+        draggable:true,
+        zIndex:1000,
+        title:'Your location',
+        icon:{
+          path:google.maps.SymbolPath.CIRCLE,
+          scale:9,
+          fillColor:'#2563EB',
+          fillOpacity:1,
+          strokeColor:'#FFFFFF',
+          strokeWeight:3
+        }
+      });
+      meMk.addListener('dragend',()=>{const p=meMk.getPosition();setLoc([p.lat(),p.lng()])});
+    }
+    if(fly){map.panTo(pos);map.setZoom(14)}
+  }
+  $('#locTxt').innerHTML='<b>Your location is set</b><small>'+ll[0].toFixed(4)+', '+ll[1].toFixed(4)+'. Drag the blue dot or click the map to change it.</small>';
+  msg('');if(!sortTouched)$('#sort').value='near';
+  lastPlaceQuery='';
+  searchGoogleShops(false);
+  render(false);
+}
+$('#gps').onclick=()=>{
+  if(!navigator.geolocation){msg('This browser can’t share its location. Search an area or click the map instead.');return}
+  msg('Finding your location…');
+  navigator.geolocation.getCurrentPosition(p=>setLoc([p.coords.latitude,p.coords.longitude],true),()=>msg('Location access was blocked. Search an area or click the map instead.'),{enableHighAccuracy:true,timeout:10000});
+};
+$('#fPlace').addEventListener('submit',e=>{
+  e.preventDefault();const t=$('#place').value.trim();if(!t)return;
+  if(!geocoder){msg('Google Maps is still loading. Try again in a moment.');return}
+  msg('Searching…');
+  geocoder.geocode({address:t,region:'IN'},(res,status)=>{
+    if(status==='OK'&&res&&res[0]){
+      const l=res[0].geometry.location;
+      setLoc([l.lat(),l.lng()],true);
+    }else{
+      msg('No place found. Try a nearby landmark or area name.');
+    }
+  });
+});
+
+/* ---------- Live Google Maps Shops Search (e.g. searching "AC" finds real AC repair shops & stores) ---------- */
+function getSearchTerm(){
+  const q=$('#q').value.trim();
+  if(q)return q;
+  if(cat!=='All')return cat;
+  return '';
+}
+function searchGoogleShops(fitAfter){
+  const term=getSearchTerm();
+  if(!term){
+    gPlaces=[];
+    lastPlaceQuery='';
+    render(fitAfter);
+    return;
+  }
+  if(!placesSvc||!map){
+    render(fitAfter);
+    return;
+  }
+  const center=loc?{lat:loc[0],lng:loc[1]}:(map.getCenter()?{lat:map.getCenter().lat(),lng:map.getCenter().lng()}:{lat:DEFAULT[0],lng:DEFAULT[1]});
+  const radVal=$('#rad').value;
+  const radius=radVal==='any'?8000:Number(radVal)*1000;
+  const key=term.toLowerCase()+'|'+center.lat.toFixed(3)+','+center.lng.toFixed(3)+'|'+radius;
+  if(key===lastPlaceQuery){
+    render(fitAfter);
+    return;
+  }
+  lastPlaceQuery=key;
+
+  placesSvc.textSearch({
+    query:term+' repair shop service store',
+    location:new google.maps.LatLng(center.lat,center.lng),
+    radius
+  },(results,status)=>{
+    if(status===google.maps.places.PlacesServiceStatus.OK&&Array.isArray(results)){
+      gPlaces=results.slice(0,15).map(pl=>({
+        id:'gp_'+pl.place_id,
+        placeId:pl.place_id,
+        name:pl.name,
+        cat:cat!=='All'?cat:(term.toUpperCase()==='AC'?'AC repair & shops':term),
+        area:pl.formatted_address||pl.vicinity||'Nearby on Google Maps',
+        lat:pl.geometry.location.lat(),
+        lng:pl.geometry.location.lng(),
+        rating:pl.rating||0,
+        rc:pl.user_ratings_total||0,
+        openNow:pl.opening_hours?pl.opening_hours.isOpen():null,
+        isGoogle:true
+      }));
+    }else{
+      gPlaces=[];
+    }
+    render(fitAfter);
+  });
+}
+function scheduleShopSearch(fitAfter){
+  clearTimeout(gTimer);
+  gTimer=setTimeout(()=>searchGoogleShops(fitAfter),350);
+}
+
+/* ---------- favorites & call/action history ---------- */
+const isFav=id=>favs.some(f=>String(f.id)===String(id));
+function toggleFav(item){
+  const idx=favs.findIndex(f=>String(f.id)===String(item.id));
+  if(idx>=0){
+    favs.splice(idx,1);
+  }else{
+    favs.unshift({
+      id:String(item.id),
+      name:item.name,
+      cat:item.cat,
+      area:item.area,
+      lat:item.lat,
+      lng:item.lng,
+      phone:item.phone||'',
+      exp:item.exp||0,
+      price:item.price||'',
+      rating:item.rating!=null?item.rating:avg(item),
+      rc:item.rc||0,
+      about:item.about||'',
+      placeId:item.placeId||'',
+      isGoogle:!!item.isGoogle,
+      savedAt:Date.now()
+    });
+  }
+  saveFavs();
+  updateBadges();
+  render(false);
+}
+function logActivity(item,action){
+  hist.unshift({
+    hid:Date.now()+'_'+Math.random().toString(36).slice(2,6),
+    id:String(item.id),
+    name:item.name,
+    cat:item.cat,
+    area:item.area,
+    phone:item.phone||'',
+    lat:item.lat,
+    lng:item.lng,
+    placeId:item.placeId||'',
+    isGoogle:!!item.isGoogle,
+    action,
+    at:Date.now()
+  });
+  if(hist.length>50)hist=hist.slice(0,50);
+  saveHist();
+  updateBadges();
+  if(view==='history')render(false);
+}
+function timeAgo(ts){
+  const sec=Math.floor((Date.now()-ts)/1000);
+  if(sec<60)return 'Just now';
+  const min=Math.floor(sec/60);
+  if(min<60)return min+'m ago';
+  const hr=Math.floor(min/60);
+  if(hr<24)return hr+'h ago';
+  return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+}
+function updateBadges(){
+  const fc=$('#favCount'),hc=$('#histCount');
+  if(fc)fc.textContent=favs.length;
+  if(hc)hc.textContent=hist.length;
+  document.querySelectorAll('#viewTabs .tab').forEach(t=>t.classList.toggle('on',t.dataset.view===view));
+}
+
+/* ---------- listings ---------- */
+function drawChips(){
+  $('#chips').innerHTML=['All',...CATS].map(c=>'<button type="button" class="chip'+(c===cat?' on':'')+'" data-cat="'+esc(c)+'">'+esc(c)+'</button>').join('');
+}
+function card(p){
+  const a=avg(p),d=(p.phone||'').replace(/\D/g,''),k=dist(p),saved=isFav(p.id);
+  const rev=(p.rev||[]).filter(r=>r.c).slice(0,3).map(r=>'<p>'+'★'.repeat(r.s)+' '+esc(r.c)+'</p>').join('');
+  return '<article class="card"><div class="tag"><span>'+esc(p.cat)+' · '+esc(p.area)+'</span>'
+   +'<button type="button" class="favbtn'+(saved?' on':'')+'" data-fav="'+esc(p.id)+'" aria-label="'+(saved?'Remove from favorites':'Save to favorites')+'" title="'+(saved?'Saved':'Save favorite')+'">'+(saved?'♥':'♡')+'</button></div><div class="body">'
+   +'<div class="who"><span class="av">'+esc(p.name[0].toUpperCase())+'</span><div><h3>'+esc(p.name)+'</h3><div class="area">'+(p.exp?p.exp+' years of experience':'LocalLink provider')+'</div></div></div>'
+   +'<div class="rate">'+(p.rc?'★ '+a.toFixed(1)+' <span>('+p.rc+' ratings)</span>':'<span>No ratings yet</span>')+'</div>'
+   +(p.about?'<p class="about">'+esc(p.about)+'</p>':'')
+   +'<div class="facts">'+(k!=null?'<b>'+k.toFixed(1)+' km away</b>':'')+(p.price?'<b>'+esc(p.price)+'</b>':'')+'</div></div>'
+   +'<div class="acts"><a class="btn" data-act="Call" data-item="'+esc(p.id)+'" href="tel:+91'+d+'">Call</a><a class="btn alt" data-act="WhatsApp" data-item="'+esc(p.id)+'" target="_blank" rel="noopener" href="https://wa.me/91'+d+'">WhatsApp</a>'
+   +'<button class="btn ghost" type="button" data-rate="'+p.id+'">Rate</button><button class="btn ghost" type="button" data-map="'+p.id+'">Show on map</button>'
+   +(me&&p.owner===me.email?'<button class="btn ghost del" type="button" data-del="'+p.id+'">Delete my listing</button>':'')+'</div>'
+   +(rev?'<details><summary>Recent comments</summary>'+rev+'</details>':'')+'</article>';
+}
+function googleShopCard(g){
+  const k=dist(g),saved=isFav(g.id);
+  const mapsUrl='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(g.name)+(g.placeId?'&query_place_id='+encodeURIComponent(g.placeId):'');
+  const dirUrl='https://www.google.com/maps/dir/?api=1&destination='+g.lat+','+g.lng+(loc?'&origin='+loc[0]+','+loc[1]:'');
+  return '<article class="card"><div class="tag"><span>Google Maps · '+esc(g.cat)+'</span>'
+   +'<button type="button" class="favbtn'+(saved?' on':'')+'" data-gfav="'+esc(g.id)+'" aria-label="'+(saved?'Remove from favorites':'Save place')+'" title="'+(saved?'Saved place':'Save to favorites')+'">'+(saved?'♥':'♡')+'</button></div><div class="body">'
+   +'<div class="who"><span class="av" style="border-color:#2563EB;color:#2563EB">G</span><div><h3>'+esc(g.name)+'</h3><div class="area">'+esc(g.area)+'</div></div></div>'
+   +'<div class="rate">'+(g.rc?'★ '+Number(g.rating||0).toFixed(1)+' <span>('+g.rc+' Google reviews)</span>':'<span>Listed on Google Maps</span>')+'</div>'
+   +'<div class="facts">'+(k!=null?'<b>'+k.toFixed(1)+' km away</b>':'')+(g.openNow===true?'<b style="color:#16a34a">Open now</b>':g.openNow===false?'<b>Closed now</b>':'')+'</div></div>'
+   +'<div class="acts"><a class="btn" data-gact="Directions" data-gitem="'+esc(g.id)+'" target="_blank" rel="noopener" href="'+dirUrl+'">Directions</a><a class="btn alt" data-gact="Opened in Maps" data-gitem="'+esc(g.id)+'" target="_blank" rel="noopener" href="'+mapsUrl+'">Open in Maps</a>'
+   +'<button class="btn ghost" type="button" style="grid-column:1/-1" data-gmap="'+esc(g.id)+'">Show on map</button></div></article>';
+}
+function historyView(){
+  if(!hist.length){
+    return '<p class="empty">No call or map activity yet. Tap <b>Call</b>, <b>WhatsApp</b>, or <b>Directions</b> on any provider or shop and it will appear here automatically.</p>';
+  }
+  const rows=hist.map(h=>{
+    const d=(h.phone||'').replace(/\D/g,'');
+    const mapsUrl='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(h.name)+(h.placeId?'&query_place_id='+encodeURIComponent(h.placeId):'');
+    const saved=isFav(h.id);
+    return '<div class="hist-row"><div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="badge">'+esc(h.action)+'</span><strong>'+esc(h.name)+'</strong><span class="hint">· '+timeAgo(h.at)+'</span></div>'
+      +'<div class="area" style="margin-top:4px">'+esc(h.cat)+' · '+esc(h.area)+(h.phone?' · '+esc(h.phone):'')+'</div></div>'
+      +'<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">'
+      +(d?'<a class="btn" data-hact="Call" data-hid="'+esc(h.hid)+'" style="padding:7px 14px" href="tel:+91'+d+'">Call again</a><a class="btn alt" data-hact="WhatsApp" data-hid="'+esc(h.hid)+'" style="padding:7px 14px" target="_blank" rel="noopener" href="https://wa.me/91'+d+'">WhatsApp</a>':'<a class="btn alt" data-hact="Opened in Maps" data-hid="'+esc(h.hid)+'" style="padding:7px 14px" target="_blank" rel="noopener" href="'+mapsUrl+'">Open in Maps</a>')
+      +'<button type="button" class="favbtn'+(saved?' on':'')+'" data-hfav="'+esc(h.hid)+'" title="'+(saved?'Saved':'Save favorite')+'">'+(saved?'♥':'♡')+'</button>'
+      +'</div></div>';
+  }).join('');
+  return '<div class="hist-list"><div style="display:flex;justify-content:space-between;align-items:center"><span class="hint">Your recent calls, WhatsApp chats, and directions (saved on this device).</span><button type="button" class="link" id="clearHist">Clear history</button></div>'+rows+'</div>';
+}
+function openPinInfo(p,m){
+  const k=dist(p),d=(p.phone||'').replace(/\D/g,'');
+  infoWin.setContent('<div style="padding:2px 4px;line-height:1.5"><b>'+esc(p.name)+'</b><br>'+esc(p.cat)+(p.rc?', ★ '+avg(p).toFixed(1):'')+(k!=null?'<br>'+k.toFixed(1)+' km away':'')+'<br><a style="color:#8A6338;font-weight:500" href="tel:+91'+d+'">Call '+esc(p.phone)+'</a></div>');
+  infoWin.open(map,m);
+}
+function openGooglePinInfo(g,m){
+  const k=dist(g);
+  const mapsUrl='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(g.name)+(g.placeId?'&query_place_id='+encodeURIComponent(g.placeId):'');
+  infoWin.setContent('<div style="padding:2px 4px;line-height:1.5"><b>'+esc(g.name)+'</b> <span style="font-size:11px;color:#2563EB">(Google Maps)</span><br>'+esc(g.area)+(g.rc?'<br>★ '+Number(g.rating||0).toFixed(1)+' ('+g.rc+' reviews)':'')+(k!=null?'<br>'+k.toFixed(1)+' km away':'')+'<br><a target="_blank" rel="noopener" style="color:#2563EB;font-weight:500" href="'+mapsUrl+'">View phone & details on Google Maps ↗</a></div>');
+  infoWin.open(map,m);
+}
+function render(fit){
+  $('#heroCount').textContent=P.length+' trusted providers';
+  updateBadges();
+  $('#chips').hidden=(view==='history');
+
+  if(view==='history'){
+    $('#count').textContent=hist.length+(hist.length===1?' activity':' activities')+' logged';
+    $('#list').innerHTML=historyView();
+    return;
+  }
+
+  const q=$('#q').value.trim().toLowerCase(),rad=$('#rad').value,s=$('#sort').value;
+
+  if(view==='favs'){
+    const F=favs.filter(f=>(cat==='All'||f.cat===cat)&&(f.name+' '+f.cat+' '+f.area+' '+(f.about||'')).toLowerCase().includes(q));
+    $('#count').textContent=F.length+(F.length===1?' saved favorite':' saved favorites');
+    $('#list').innerHTML=F.length?F.map(f=>f.isGoogle?googleShopCard(f):card({...f,rs:(f.rating||0)*(f.rc||0),rev:[],by:[]})).join(''):'<p class="empty">No saved favorites yet. Tap the <b>♡</b> heart on any provider or Google Maps shop to save it here.</p>';
+    if(!map)return;
+    Object.values(mk).forEach(m=>m.setMap(null));for(const k in mk)delete mk[k];
+    Object.values(gMk).forEach(m=>m.setMap(null));for(const k in gMk)delete gMk[k];
+    const bounds=new google.maps.LatLngBounds();
+    F.forEach(f=>{
+      const pos={lat:f.lat,lng:f.lng};
+      const m=new google.maps.Marker({
+        position:pos,map,title:f.name,
+        icon:pinIcon(f.name[0].toUpperCase(),f.isGoogle?'#DBEAFE':'#F3E3D0',f.isGoogle?'#2563EB':'#8A6338','#3A2E2A')
+      });
+      m.addListener('click',()=>f.isGoogle?openGooglePinInfo(f,m):openPinInfo({...f,rs:(f.rating||0)*(f.rc||0)},m));
+      if(f.isGoogle)gMk[f.id]=m;else mk[f.id]=m;
+      bounds.extend(pos);
+    });
+    if(loc)bounds.extend({lat:loc[0],lng:loc[1]});
+    if(fit&&F.length){map.fitBounds(bounds,40);google.maps.event.addListenerOnce(map,'idle',()=>{if(map.getZoom()>15)map.setZoom(15)})}
+    return;
+  }
+
+  const R=P.filter(p=>(cat==='All'||p.cat===cat)&&(p.name+' '+p.cat+' '+p.area+' '+(p.about||'')).toLowerCase().includes(q)&&(rad==='any'||!loc||dist(p)<=+rad));
+  R.sort(s==='near'&&loc?(x,y)=>dist(x)-dist(y):s==='reviews'?(x,y)=>y.rc-x.rc:s==='exp'?(x,y)=>y.exp-x.exp:(x,y)=>avg(y)-avg(x));
+
+  const G=gPlaces.filter(g=>rad==='any'||!loc||dist(g)<=+rad);
+  if(s==='near'&&loc)G.sort((x,y)=>dist(x)-dist(y));
+  else if(s==='reviews')G.sort((x,y)=>y.rc-x.rc);
+  else G.sort((x,y)=>y.rating-x.rating);
+
+  const total=R.length+G.length;
+  $('#count').textContent=total+(total===1?' result':' results')+' found'+(G.length?' ('+R.length+' LocalLink, '+G.length+' from Google Maps)':'')+(rad!=='any'&&!loc?' (set your location to filter by distance)':'');
+  $('#list').innerHTML=total?(R.map(card).join('')+G.map(googleShopCard).join('')):'<p class="empty">Nobody matches yet. Try a wider distance or another category, or add your own service.</p>';
+
+  if(!map)return;
+  Object.values(mk).forEach(m=>m.setMap(null));
+  for(const k in mk)delete mk[k];
+  Object.values(gMk).forEach(m=>m.setMap(null));
+  for(const k in gMk)delete gMk[k];
+
+  const bounds=new google.maps.LatLngBounds();
+  R.forEach(p=>{
+    const ci=Math.max(0,CATS.indexOf(p.cat));
+    const pos={lat:p.lat,lng:p.lng};
+    const m=new google.maps.Marker({
+      position:pos,
+      map,
+      title:p.name,
+      icon:pinIcon(p.name[0].toUpperCase(),COL[ci])
+    });
+    m.addListener('click',()=>openPinInfo(p,m));
+    mk[p.id]=m;
+    bounds.extend(pos);
+  });
+  G.forEach(g=>{
+    const pos={lat:g.lat,lng:g.lng};
+    const m=new google.maps.Marker({
+      position:pos,
+      map,
+      title:g.name+' (Google Maps)',
+      icon:pinIcon(g.name[0].toUpperCase(),'#DBEAFE','#2563EB','#1E3A8A')
+    });
+    m.addListener('click',()=>openGooglePinInfo(g,m));
+    gMk[g.id]=m;
+    bounds.extend(pos);
+  });
+  if(loc)bounds.extend({lat:loc[0],lng:loc[1]});
+  if(fit&&total){
+    map.fitBounds(bounds,40);
+    google.maps.event.addListenerOnce(map,'idle',()=>{if(map.getZoom()>15)map.setZoom(15)});
+  }
+}
+$('#viewTabs').addEventListener('click',e=>{
+  const t=e.target.closest('[data-view]');
+  if(t){view=t.dataset.view;render(true)}
+});
+$('#chips').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(b){cat=b.dataset.cat;drawChips();if(view==='all')searchGoogleShops(true);else render(true)}});
+$('#list').addEventListener('click',e=>{
+  const r=e.target.closest('[data-rate]'),m=e.target.closest('[data-map]'),gm=e.target.closest('[data-gmap]'),d=e.target.closest('[data-del]');
+  const favB=e.target.closest('[data-fav]'),gfavB=e.target.closest('[data-gfav]'),hfavB=e.target.closest('[data-hfav]');
+  const actA=e.target.closest('[data-act]'),gactA=e.target.closest('[data-gact]');
+
+  if(favB){
+    const p=P.find(x=>String(x.id)===favB.dataset.fav)||favs.find(x=>String(x.id)===favB.dataset.fav);
+    if(p)toggleFav(p);
+  }
+  if(gfavB){
+    const g=gPlaces.find(x=>x.id===gfavB.dataset.gfav)||favs.find(x=>x.id===gfavB.dataset.gfav);
+    if(g)toggleFav(g);
+  }
+  if(hfavB){
+    const h=hist.find(x=>x.hid===hfavB.dataset.hfav);
+    if(h)toggleFav(h);
+  }
+  if(actA){
+    const p=P.find(x=>String(x.id)===actA.dataset.item)||favs.find(x=>String(x.id)===actA.dataset.item);
+    if(p)logActivity(p,actA.dataset.act);
+  }
+  if(gactA){
+    const g=gPlaces.find(x=>x.id===gactA.dataset.gitem)||favs.find(x=>x.id===gactA.dataset.gitem);
+    if(g)logActivity(g,gactA.dataset.gact);
+  }
+  const hactA=e.target.closest('[data-hact]');
+  if(hactA){
+    const h=hist.find(x=>x.hid===hactA.dataset.hid);
+    if(h)logActivity(h,hactA.dataset.hact);
+  }
+  if(e.target.id==='clearHist'&&confirm('Clear your call and activity history?')){
+    hist=[];saveHist();updateBadges();render(false);
+  }
+  if(r)gate(()=>openRate(+r.dataset.rate));
+  if(m&&map){
+    const p=P.find(x=>String(x.id)===m.dataset.map)||favs.find(x=>String(x.id)===m.dataset.map);
+    if(p){$('#map').scrollIntoView({behavior:'smooth',block:'center'});map.panTo({lat:p.lat,lng:p.lng});map.setZoom(16);if(mk[p.id])openPinInfo(p,mk[p.id])}
+  }
+  if(gm&&map){
+    const g=gPlaces.find(x=>x.id===gm.dataset.gmap)||favs.find(x=>x.id===gm.dataset.gmap);
+    if(g){$('#map').scrollIntoView({behavior:'smooth',block:'center'});map.panTo({lat:g.lat,lng:g.lng});map.setZoom(16);if(gMk[g.id])openGooglePinInfo(g,gMk[g.id])}
+  }
+  if(d&&confirm('Delete this listing?')){P=P.filter(x=>x.id!=d.dataset.del);save();render(false)}
+});
+$('#q').addEventListener('input',()=>{render(false);if(view==='all')scheduleShopSearch(false)});
+$('#q').addEventListener('change',()=>{if(view==='all')searchGoogleShops(true);else render(true)});
+$('#rad').addEventListener('change',()=>{if(view==='all')searchGoogleShops(true);else render(true)});
+$('#sort').addEventListener('change',()=>{sortTouched=true;render(false)});
+$('#go').onclick=()=>{view='all';searchGoogleShops(true);$('#list').scrollIntoView({behavior:'smooth'})};
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
+$('#exploreBtn').onclick=()=>gate(()=>enterApp());
+$('#navExplore').onclick=e=>{e.preventDefault();gate(()=>enterApp())};
+
+nav();drawChips();
+if(!loc){$('#sort').value='rating';render(false)}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8zmm6LADcy4GJFz52gU3X5sYxf833K_8&libraries=places&callback=initMap" async defer></script></body>
+</html>
